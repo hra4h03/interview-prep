@@ -23,6 +23,7 @@ export class PrepController {
 
     @Post('/post')
     async addPost(@Res() res, @Body() createPostDTO: CreatePostDTO) {
+        console.log('createPostDTO ', createPostDTO);
         const newPost = await this.prepService.addPost(createPostDTO);
         return res.status(HttpStatus.OK).json({
             message: "Post has been submitted successfully!",

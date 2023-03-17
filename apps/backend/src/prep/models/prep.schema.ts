@@ -1,9 +1,27 @@
-import * as mongoose from 'mongoose';
+import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export const PrepSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    body: String,
-    author: String,
-    date_posted: String
-})
+@Schema({ timestamps: true })
+class PrepDocument {
+    @Prop()
+    title: string;
+
+    @Prop()
+    description: string;
+
+    @Prop()
+    body: string;
+
+    @Prop()
+    author: string;
+
+    @Prop()
+    createdAt?: Date
+
+    @Prop()
+    updatedAt?: Date
+}
+
+export type Prep = PrepDocument & Document;
+
+export const prepSchema = SchemaFactory.createForClass(PrepDocument);
