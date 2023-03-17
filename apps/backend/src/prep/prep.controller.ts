@@ -1,7 +1,7 @@
 import { Controller, Get, Res, HttpStatus, Param, NotFoundException, Post, Body, Query, Put, Delete } from '@nestjs/common';
 import { PrepService } from './prep.service';
 import { CreatePostDTO } from './dto/create-post.dto';
-import { ValidateObjectId } from '../shared/pipes/validate-object-id.pipes';
+import { ValidateObjectId } from './pipes/validate-object-id.pipes';
 
 @Controller('prep')
 export class PrepController {
