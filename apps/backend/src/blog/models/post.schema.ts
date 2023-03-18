@@ -2,7 +2,7 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
-class PrepDocument extends Document {
+class PostDocument extends Document {
     @Prop()
     title: string;
 
@@ -21,10 +21,10 @@ class PrepDocument extends Document {
     @Prop()
     updatedAt?: Date
 
-    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'CategoryDocument' })
-    category: MongooseSchema.Types.ObjectId
+    @Prop()
+    category: [string]
 }
 
-export type Prep = PrepDocument & Document;
+export type Post = PostDocument & Document;
 
-export const prepSchema = SchemaFactory.createForClass(PrepDocument);
+export const postSchema = SchemaFactory.createForClass(PostDocument);
