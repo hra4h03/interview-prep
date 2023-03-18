@@ -1,8 +1,8 @@
-import { Document } from 'mongoose';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
-class PrepDocument {
+class PrepDocument extends Document {
     @Prop()
     title: string;
 
@@ -20,6 +20,9 @@ class PrepDocument {
 
     @Prop()
     updatedAt?: Date
+
+    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'CategoryDocument' })
+    category: MongooseSchema.Types.ObjectId
 }
 
 export type Prep = PrepDocument & Document;
