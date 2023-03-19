@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import Blog from './blog';
+import Navbar from './navbar';
 
-describe('Blog', () => {
+describe('Navbar', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Blog />);
+    const { baseElement } = render(<Navbar />);
     expect(baseElement).toBeTruthy();
   });
 });
