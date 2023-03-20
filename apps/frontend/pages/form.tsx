@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { baseUrl } from 'apps/frontend/config';
+import { API_URL, CLOUDINARY_BASE_URL, CLOUDINARY_ID } from '../app/constants';
 
 /* eslint-disable-next-line */
 export interface FormProps { }
@@ -8,7 +8,8 @@ export interface FormProps { }
 const INITIAL_USER = {
   title: "",
   text: "",
-  category: ""
+  categoryName: "",
+  categoryImage: ""
 };
 
 export function Form(props: FormProps) {
@@ -27,9 +28,10 @@ export function Form(props: FormProps) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(article)
     try {
-      const url = `${baseUrl}/create`;
+      article.categoryImage = `${CLOUDINARY_BASE_URL}/${CLOUDINARY_ID}/${article.categoryName}.png`;
+      console.log(article);
+      const url = `${process.env.API_URL}/create`;
       const payload = { ...article };
       const response = await axios.post(url, payload);
     } catch (error) {
@@ -69,8 +71,9 @@ export function Form(props: FormProps) {
           <label>Category</label>
           <select
             className="form-control"
-            placeholder="category"
-            value={article.category}
+            placeholder="category name"
+            name='categoryName'
+            value={article.categoryName}
             onChange={handleChange}
           >
             <option>javascript</option>
@@ -81,7 +84,8 @@ export function Form(props: FormProps) {
           </select>
         </div>
 
-        <button type="submit" disabled={disabled}>
+        {/* <button type="submit" disabled={disabled}> */}
+        <button type="submit">
           Create
         </button>
       </form>
