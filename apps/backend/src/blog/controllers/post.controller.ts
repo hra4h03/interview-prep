@@ -1,7 +1,7 @@
 import { Controller, Get, Res, HttpStatus, Param, NotFoundException, Post, Body, Query, Put, Delete, UsePipes } from '@nestjs/common';
-import { PostService } from './post.service';
-import { CreatePostDTO } from './dto/create-post.dto';
-import { ValidateObjectId, ValidatePost } from './pipes/validation-pipes';
+import { PostService } from '../services/post.service';
+import { CreatePostDTO } from '../dto/create-post.dto';
+import { ValidateObjectId, ValidatePost } from '../pipes/validation-pipes';
 
 @Controller('blog')
 export class PostController {
@@ -16,7 +16,6 @@ export class PostController {
     @Get('latest')
     async getLatestPosts(@Res() res) {
         const posts = await this.postService.getLatestPosts();
-        console.log('latest ', posts);
         return res.status(HttpStatus.OK).json(posts);
     }
 
@@ -25,7 +24,6 @@ export class PostController {
         const post = await this.postService.getPost(postID);
         if (!post) throw new NotFoundException('Post does not exist!');
         return res.status(HttpStatus.OK).json(post);
-
     }
 
     @UsePipes(ValidatePost)
