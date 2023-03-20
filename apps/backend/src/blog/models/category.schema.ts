@@ -4,7 +4,10 @@ import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 @Schema({ timestamps: true })
 class CategoryDocument extends Document {
     @Prop()
-    name: [string]
+    categoryName: [string]
+
+    @Prop()
+    categoryImage: string
 }
 
 // export type Category = CategoryDocument & Document;

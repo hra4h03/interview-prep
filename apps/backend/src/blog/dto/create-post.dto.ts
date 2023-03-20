@@ -7,7 +7,8 @@ export const postSchema = Joi.object({
     description: Joi.string().required(),
     body: Joi.string().required(),
     author: Joi.string().required(),
-    category: Joi.string().valid(...CATEGORIES).required(),
+    categoryName: Joi.string().valid(...CATEGORIES).required(),
+    categoryImage: Joi.string().required(),
 }).options({
     abortEarly: false,
 });
@@ -18,5 +19,6 @@ export class CreatePostDTO {
     readonly body: string;
     readonly author: string;
     @IsNotEmpty()
-    readonly category: string
+    readonly category: string;
+    readonly categoryImage: string;
 }

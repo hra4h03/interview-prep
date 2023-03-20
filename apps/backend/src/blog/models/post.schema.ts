@@ -22,7 +22,10 @@ class PostDocument extends Document {
     updatedAt?: Date
 
     @Prop()
-    category: [string]
+    categoryName: [string]
+
+    @Prop()
+    categoryImage: string
 }
 
 export type Post = PostDocument & Document;

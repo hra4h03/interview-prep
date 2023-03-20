@@ -2,7 +2,10 @@
   "name": "interview-prep",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "local": "next local",
+    "prod": "next build && next start"
+  },
   "private": true,
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",

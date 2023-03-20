@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { baseUrl } from 'apps/frontend/config';
+import { API_URL } from '../constants/index';
 
 /* eslint-disable-next-line */
 export interface FormProps { }
@@ -8,7 +8,8 @@ export interface FormProps { }
 const INITIAL_USER = {
   title: "",
   text: "",
-  category: ""
+  categoryName: "",
+  categoryImage: ""
 };
 
 export function Form(props: FormProps) {
@@ -27,10 +28,11 @@ export function Form(props: FormProps) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(article)
+    console.log(article)
     try {
-      const url = `${baseUrl}/create`;
+      const url = `${API_URL}/create`;
       const payload = { ...article };
+      payload.categoryImage = `${process.env.CLOUDINARY_BASE_URL}/${article.categoryName}.png`
       const response = await axios.post(url, payload);
     } catch (error) {
       console.log(error)
@@ -49,6 +51,7 @@ export function Form(props: FormProps) {
             placeholder="Full Name"
             name="title"
             value={article.title}
+            required
             onChange={handleChange}
           />
         </div>
@@ -60,6 +63,7 @@ export function Form(props: FormProps) {
             placeholder="text"
             name="text"
             value={article.text}
+            required
             onChange={handleChange}
           />
         </div>
@@ -70,8 +74,9 @@ export function Form(props: FormProps) {
             type="text"
             className="form-control"
             placeholder="category"
-            name="category"
-            value={article.category}
+            name="categoryName"
+            value={article.categoryName}
+            required
             onChange={handleChange}
           />
         </div>
