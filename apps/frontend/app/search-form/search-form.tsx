@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Router from 'next/router';
-import { API_URL } from '../constants';
-
-function getLatest() {
-  return fetch(`${API_URL}/latest`).then(data => data.json())
-}
 
 const SearchForm = () => {
 

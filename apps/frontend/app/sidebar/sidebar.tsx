@@ -5,16 +5,18 @@ import { API_URL } from '../constants';
 /* eslint-disable-next-line */
 export interface SidebarProps { }
 
-function getLatest() {
-  return fetch(`${API_URL}/latest`).then(data => data.json())
-}
+const getLatest = () => fetch(`${API_URL}/latest`).then(data => data.json());
+const getCategories = () => fetch(`${API_URL}/categories`).then(data => data.json());
 
 export function Sidebar(props: SidebarProps) {
   const [latest, setLatest] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getLatest().then(latest => setLatest(latest)
-    )
+    getLatest().then(latest => setLatest(latest))
+    getCategories().then(categories => {
+      setCategories(categories[0]?.categoryName)
+    })
   }, [])
 
   return (
@@ -40,7 +42,6 @@ export function Sidebar(props: SidebarProps) {
             <div className="item" key={index}>
               <Link legacyBehavior href="#">
                 <a className="thumb">
-                  {/* <span className="fullimage cover bg1" role="img"></span> */}
                   <img src={item.categoryImage} alt={item.categoryName}></img>
                 </a>
               </Link>
@@ -64,35 +65,20 @@ export function Sidebar(props: SidebarProps) {
         <h3 className="widget-title">Categories</h3>
 
         <ul>
-          <li>
-            <Link legacyBehavior href="#">
-              <a>Design <span className="post-count">(03)</span></a>
-            </Link>
-          </li>
-          <li>
-            <Link legacyBehavior href="#">
-              <a>Lifestyle <span className="post-count">(05)</span></a>
-            </Link>
-          </li>
-          <li>
-            <Link legacyBehavior href="#">
-              <a>Script <span className="post-count">(10)</span></a>
-            </Link>
-          </li>
-          <li>
-            <Link legacyBehavior href="#">
-              <a>Device <span className="post-count">(08)</span></a>
-            </Link>
-          </li>
-          <li>
-            <Link legacyBehavior href="#">
-              <a>Tips <span className="post-count">(01)</span></a>
-            </Link>
-          </li>
+          {categories.map((item, index) => {
+            return (
+              <li key={index}>
+                <Link legacyBehavior href="#">
+                  {/* <a>{item} <span className="post-count">(03)</span></a> */}
+                  <a>{item} <span className="post-count"></span></a>
+                </Link>
+              </li>
+            )
+          })}
         </ul>
       </div>
 
-      <div className="widget widget_tag_cloud">
+      {/* <div className="widget widget_tag_cloud">
         <h3 className="widget-title">Popular Tags</h3>
 
         <div className="tagcloud">
@@ -144,7 +130,8 @@ export function Sidebar(props: SidebarProps) {
             </a>
           </Link>
         </div>
-      </div>
+      </div> */}
+
     </div>
   );
 }
