@@ -14,6 +14,12 @@ export class PostService {
         return posts;
     }
 
+    async getLatestPosts() {
+        const posts = await this._postModel.find({}).sort({ $natural: -1 }).skip(0).limit(10).exec();
+
+        return posts;
+    }
+
     async getPost(postID) {
         const post = await this._postModel.findById(postID).exec();
         return post;

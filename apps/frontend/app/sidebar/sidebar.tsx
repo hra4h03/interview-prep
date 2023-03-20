@@ -1,10 +1,22 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react'
+import { API_URL } from '../constants';
 
 /* eslint-disable-next-line */
 export interface SidebarProps { }
 
+function getLatest() {
+  return fetch(`${API_URL}/latest`).then(data => data.json())
+}
+
 export function Sidebar(props: SidebarProps) {
+  const [latest, setLatest] = useState([]);
+
+  useEffect(() => {
+    getLatest().then(latest => setLatest(latest)
+    )
+  }, [])
+
   return (
     <div className="widget-area">
       <div className="widget widget_search">
@@ -23,59 +35,29 @@ export function Sidebar(props: SidebarProps) {
       <div className="widget widget_blog_posts_thumb">
         <h3 className="widget-title">Popular Posts</h3>
 
-        <div className="item">
-          <Link legacyBehavior href="#">
-            <a className="thumb">
-              <span className="fullimage cover bg1" role="img"></span>
-            </a>
-          </Link>
-          <div className="info">
-            <span>June 10, 2020</span>
-            <h4 className="title usmall">
+        {latest.map((item, index) => {
+          return (
+            <div className="item" key={index}>
               <Link legacyBehavior href="#">
-                <a>Ultimate Bali Guide + Where to stay in Bali 2020</a>
+                <a className="thumb">
+                  {/* <span className="fullimage cover bg1" role="img"></span> */}
+                  <img src={item.categoryImage} alt={item.categoryName}></img>
+                </a>
               </Link>
-            </h4>
-          </div>
+              <div className="info">
+                <span>{item.created_at}</span>
+                <h4 className="title usmall">
+                  <Link legacyBehavior href="#">
+                    <a>{item.title}</a>
+                  </Link>
+                </h4>
+              </div>
 
-          <div className="clear"></div>
-        </div>
+              <div className="clear"></div>
+            </div>
+          )
+        })}
 
-        <div className="item">
-          <Link legacyBehavior href="#">
-            <a className="thumb">
-              <span className="fullimage cover bg2" role="img"></span>
-            </a>
-          </Link>
-          <div className="info">
-            <span>June 21, 2020</span>
-            <h4 className="title usmall">
-              <Link legacyBehavior href="#">
-                <a>Live the Island life: 20 unique Islands to visit in 2020</a>
-              </Link>
-            </h4>
-          </div>
-
-          <div className="clear"></div>
-        </div>
-
-        <div className="item">
-          <Link legacyBehavior href="#">
-            <a className="thumb">
-              <span className="fullimage cover bg3" role="img"></span>
-            </a>
-          </Link>
-          <div className="info">
-            <span>June 30, 2020</span>
-            <h4 className="title usmall">
-              <Link legacyBehavior href="#">
-                <a>Best Places to Visit in Europe this Autumn & Winter</a>
-              </Link>
-            </h4>
-          </div>
-
-          <div className="clear"></div>
-        </div>
       </div>
 
       <div className="widget widget_categories">

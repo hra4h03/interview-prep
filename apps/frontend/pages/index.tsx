@@ -1,5 +1,4 @@
 import Blog from '../app/blog/blog';
-import Navbar from '../app/navbar/navbar';
 
 export function Index() {
   /*
@@ -7,7 +6,6 @@ export function Index() {
    */
   return (
     <>
-      <Navbar user={undefined}></Navbar>
       <Blog></Blog>
     </>
   );

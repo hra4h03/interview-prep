@@ -1,13 +1,13 @@
 import React from "react";
 import axios from "axios";
-import { API_URL, CLOUDINARY_BASE_URL, CLOUDINARY_ID } from '../app/constants';
+import { API_URL, CLOUDINARY_BASE_URL, CLOUDINARY_FOLDER, CLOUDINARY_ID } from '../app/constants';
 
 /* eslint-disable-next-line */
 export interface FormProps { }
 
 const INITIAL_USER = {
   title: "",
-  text: "",
+  description: "",
   categoryName: "",
   categoryImage: ""
 };
@@ -29,13 +29,18 @@ export function Form(props: FormProps) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      article.categoryImage = `${CLOUDINARY_BASE_URL}/${CLOUDINARY_ID}/${article.categoryName}.png`;
+      article.categoryImage = `${CLOUDINARY_BASE_URL}/${CLOUDINARY_ID}/${CLOUDINARY_FOLDER}/${article.categoryName}.png`;
       console.log(article);
-      const url = `${process.env.API_URL}/create`;
+      const url = `${API_URL}/post`;
       const payload = { ...article };
       const response = await axios.post(url, payload);
+      console.log('response ', response)
+      if (response.status === 200) {
+        alert('Article posted successfully!')
+      }
     } catch (error) {
-      console.log(error)
+      alert(error?.response?.data?.message)
+      console.log(error?.response?.data)
     }
   };
   return (
@@ -46,7 +51,7 @@ export function Form(props: FormProps) {
         <div className="form-group">
           <label>Title</label>
           <input
-            type="text"
+            type="description"
             className="form-control"
             placeholder="Full Name"
             name="title"
@@ -56,12 +61,12 @@ export function Form(props: FormProps) {
         </div>
 
         <div className="form-group">
-          <label>Text</label>
+          <label>Description</label>
           <textarea
             className="form-control"
             placeholder="Description"
-            name="text"
-            value={article.text}
+            name="description"
+            value={article.description}
             rows="10"
             onChange={handleChange}
           />
@@ -80,7 +85,7 @@ export function Form(props: FormProps) {
             <option>aws</option>
             <option>nodejs</option>
             <option>html</option>
-            <option>reactjs</option>
+            <option>react</option>
           </select>
         </div>
 

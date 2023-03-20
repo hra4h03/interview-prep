@@ -5,8 +5,7 @@ import Joi from 'joi';
 export const postSchema = Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
-    body: Joi.string().required(),
-    author: Joi.string().required(),
+    author: Joi.string().default('Kiriti Komaragiri'),
     categoryName: Joi.string().valid(...CATEGORIES).required(),
     categoryImage: Joi.string().required(),
 }).options({
@@ -19,6 +18,6 @@ export class CreatePostDTO {
     readonly body: string;
     readonly author: string;
     @IsNotEmpty()
-    readonly category: string;
+    readonly categoryName: string;
     readonly categoryImage: string;
 }

@@ -13,6 +13,13 @@ export class PostController {
         return res.status(HttpStatus.OK).json(posts);
     }
 
+    @Get('latest')
+    async getLatestPosts(@Res() res) {
+        const posts = await this.postService.getLatestPosts();
+        console.log('latest ', posts);
+        return res.status(HttpStatus.OK).json(posts);
+    }
+
     @Get('post/:postID')
     async getPost(@Res() res, @Param('postID', new ValidateObjectId()) postID) {
         const post = await this.postService.getPost(postID);

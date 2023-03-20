@@ -7,14 +7,16 @@ import "../styles/meanmenu.min.css";
 import "../styles/flaticon.css";
 import "../styles/style.css";
 import "../styles/responsive.css";
+import Navbar from '../app/navbar/navbar';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to frontend!</title>
+        <title>Interview prep!</title>
       </Head>
       <main className="app">
+        <Navbar user={undefined}></Navbar>
         <Component {...pageProps} />
       </main>
     </>

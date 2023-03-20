@@ -565,11 +565,6 @@ textarea.form-control {
 /*================================================
 Navbar Area CSS
 =================================================*/
-.blog-nav {
-  border-bottom-style: solid;
-  border-bottom-width: thin;
-  border-bottom-color: grey;
-}
 .blog-nav .container-fluid {
   padding-left: 40px;
   padding-right: 40px;

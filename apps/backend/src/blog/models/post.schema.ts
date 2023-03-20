@@ -1,4 +1,4 @@
-import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Document } from 'mongoose';
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
@@ -10,10 +10,7 @@ class PostDocument extends Document {
     description: string;
 
     @Prop()
-    body: string;
-
-    @Prop()
-    author: string;
+    author?: string;
 
     @Prop()
     createdAt?: Date

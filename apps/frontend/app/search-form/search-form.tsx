@@ -1,5 +1,10 @@
-import React from 'react'
-import Router from 'next/router'
+import React, { useEffect, useState } from 'react'
+import Router from 'next/router';
+import { API_URL } from '../constants';
+
+function getLatest() {
+  return fetch(`${API_URL}/latest`).then(data => data.json())
+}
 
 const SearchForm = () => {
 
@@ -8,8 +13,6 @@ const SearchForm = () => {
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setSearch(prevState => ({ ...prevState, [name]: value }))
-
-    // console.log("dsddsd")
   }
 
   const handleSearch = (e) => {

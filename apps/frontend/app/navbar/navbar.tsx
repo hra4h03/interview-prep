@@ -27,8 +27,8 @@ const Navbar = ({ user }) => {
           <div className="container">
             <div className="navbar navbar-expand-lg navbar-light">
               <Link legacyBehavior href="/">
-                <a onClick={toggleNavbar} className="navbar-brand">
-                  <img src="/images/logo.png" alt="logo" />
+                <a onClick={toggleNavbar} className="navbar-brand">myPrep
+                  {/* <img src="/images/prep.svg" alt="logo" /> */}
                 </a>
               </Link>
 
@@ -45,7 +45,7 @@ const Navbar = ({ user }) => {
                 <ul className="navbar-nav">
                   <li className="nav-item">
                     <Link legacyBehavior href="/">
-                      <a onClick={(e) => e.preventDefault()} className="nav-link">	Home{" "}</a>
+                      <a className="nav-link">Home</a>
                     </Link>
                   </li>
 
@@ -93,6 +93,8 @@ const Navbar = ({ user }) => {
             </div>
           </div>
         </div>
+        <br></br>
+        <hr></hr>
       </div>
     </>
   );
