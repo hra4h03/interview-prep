@@ -1,7 +1,7 @@
 import { Controller, Get, Res, HttpStatus, Param, NotFoundException, Post, Body, Query, Put, Delete, UsePipes } from '@nestjs/common';
-import { PostService } from '../services/post.service';
-import { CreatePostDTO } from '../dto/create-post.dto';
-import { ValidateObjectId, ValidatePost } from '../pipes/validation-pipes';
+import { PostService } from './post.service';
+import { CreatePostDTO } from './dto/create-post.dto';
+import { ValidateObjectId, ValidatePost } from './pipes/validation-pipes';
 
 @Controller('blog')
 export class PostController {
@@ -29,7 +29,6 @@ export class PostController {
     @UsePipes(ValidatePost)
     @Post('/post')
     async addPost(@Res() res, @Body() createPostDTO: CreatePostDTO) {
-        console.log('createPostDTO ', createPostDTO);
         const newPost = await this.postService.addPost(createPostDTO);
         return res.status(HttpStatus.OK).json({
             message: "Post has been submitted successfully!",

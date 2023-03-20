@@ -1,4 +1,4 @@
-import { CATEGORIES } from '../constants/index';
+import { CATEGORIES } from '../../constants';
 import { IsNotEmpty } from 'class-validator';
 import Joi from 'joi';
 
