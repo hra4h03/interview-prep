@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL, CLOUDINARY_BASE_URL, CLOUDINARY_FOLDER, CLOUDINARY_ID } from '../app/constants';
 
 /* eslint-disable-next-line */
 export interface FormProps { }
+
+const getCategories = () => fetch(`${API_URL}/categories`).then(data => data.json());
 
 const INITIAL_USER = {
   title: "",
@@ -14,27 +16,28 @@ const INITIAL_USER = {
 
 export function Form(props: FormProps) {
   const [article, setArticle] = React.useState(INITIAL_USER);
-  const [disabled, setDisabled] = React.useState(true);
+  const [disabled, setDisabled] = useState(true);
+  const [categories, setCategories] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const isArticle = Object.values(article).every((el) => Boolean(el));
     isArticle ? setDisabled(false) : setDisabled(true);
+    getCategories().then(categories => setCategories(categories))
   }, [article]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setArticle((prevState) => ({ ...prevState, [name]: value }));
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setArticle((prevState) => ({ ...prevState, [name]: value }));
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       article.categoryImage = `${CLOUDINARY_BASE_URL}/${CLOUDINARY_ID}/${CLOUDINARY_FOLDER}/${article.categoryName}.png`;
-      console.log(article);
       const url = `${API_URL}/post`;
       const payload = { ...article };
+      console.log('payload ', payload);
       const response = await axios.post(url, payload);
-      console.log('response ', response)
       if (response.status === 200) {
         alert('Article posted successfully!')
       }
@@ -78,14 +81,10 @@ export function Form(props: FormProps) {
             className="form-control"
             placeholder="category name"
             name='categoryName'
-            value={article.categoryName}
+            defaultValue={article.categoryName}
             onChange={handleChange}
           >
-            <option>javascript</option>
-            <option>aws</option>
-            <option>nodejs</option>
-            <option>html</option>
-            <option>react</option>
+            {categories.map((item) => <option key={item._id}>{item.categoryName}</option>)}
           </select>
         </div>
 

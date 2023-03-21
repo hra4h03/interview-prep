@@ -3,8 +3,8 @@ import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
 class CategoryDocument extends Document {
-    @Prop()
-    categoryName: [string]
+    @Prop({ type: String, unique: true, lowercase: true })
+    categoryName: string
 
     @Prop()
     categoryImage: string

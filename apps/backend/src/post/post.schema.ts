@@ -1,4 +1,5 @@
-import { Document } from 'mongoose';
+import { Category } from './../category/category.schema';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
@@ -18,8 +19,11 @@ class PostDocument extends Document {
     @Prop()
     updatedAt?: Date
 
-    @Prop()
-    categoryName: [string]
+    // @Prop()
+    // categoryName: []
+
+    @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Category' })
+    categoryName: Category
 
     @Prop()
     categoryImage: string

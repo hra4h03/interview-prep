@@ -24,6 +24,11 @@ export class PostService {
         return post;
     }
 
+    async getPostsByCategory(categoryID) {
+        const posts = await this._postModel.find({ _id: categoryID }).populate('category').exec();
+        return posts;
+    }
+
     async addPost(createPostDTO: CreatePostDTO) {
         const newPost = await this._postModel.create(createPostDTO);
         return newPost.save();

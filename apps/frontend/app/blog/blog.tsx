@@ -1,4 +1,6 @@
+import { getBlogId } from 'apps/frontend/pages/blog-details/[id]';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { API_URL } from '../constants';
 import Sidebar from '../sidebar/sidebar';
@@ -6,7 +8,8 @@ import Sidebar from '../sidebar/sidebar';
 /* eslint-disable-next-line */
 export interface BlogProps { }
 
-const getList = async () => await (await fetch(`${API_URL}/posts`)).json()
+const getList = async () => (await fetch(`${API_URL}/posts`)).json()
+// const getPostsByCategory = async (id) => (await fetch(`${API_URL}/posts/category/${id}`)).json()
 
 export function Blog(props: BlogProps) {
   const [items, setItems] = useState([]);

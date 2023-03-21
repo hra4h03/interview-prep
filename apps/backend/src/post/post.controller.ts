@@ -26,6 +26,13 @@ export class PostController {
         return res.status(HttpStatus.OK).json(post);
     }
 
+    @Get('posts/category/:categoryID')
+    async getPostsByCategory(@Res() res, @Param('categoryID', new ValidateObjectId()) categoryID) {
+        const posts = await this.postService.getPostsByCategory(categoryID);
+        if (!posts) throw new NotFoundException('Post does not exist!');
+        return res.status(HttpStatus.OK).json(posts);
+    }
+
     @UsePipes(ValidatePost)
     @Post('/post')
     async addPost(@Res() res, @Body() createPostDTO: CreatePostDTO) {

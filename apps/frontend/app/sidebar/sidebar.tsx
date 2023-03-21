@@ -14,9 +14,7 @@ export function Sidebar(props: SidebarProps) {
 
   useEffect(() => {
     getLatest().then(latest => setLatest(latest))
-    getCategories().then(categories => {
-      setCategories(categories[0]?.categoryName)
-    })
+    getCategories().then(categories => setCategories(categories))
   }, [])
 
   return (
@@ -37,7 +35,7 @@ export function Sidebar(props: SidebarProps) {
       <div className="widget widget_blog_posts_thumb">
         <h3 className="widget-title">Popular Posts</h3>
 
-        {latest.map((item, index) => {
+        {latest?.map((item, index) => {
           return (
             <div className="item" key={index}>
               <Link legacyBehavior href="#">
@@ -46,7 +44,7 @@ export function Sidebar(props: SidebarProps) {
                 </a>
               </Link>
               <div className="info">
-                <span>{item.created_at}</span>
+                <span>{item.createdAt}</span>
                 <h4 className="title usmall">
                   <Link legacyBehavior href={`/blog-details/${item._id}.tsx`}>
                     <a>{item.title}</a>
@@ -65,16 +63,18 @@ export function Sidebar(props: SidebarProps) {
         <h3 className="widget-title">Categories</h3>
 
         <ul>
-          {categories.map((item, index) => {
+          {categories.map((item) => {
             return (
-              <li key={index}>
-                <Link legacyBehavior href="#">
+              <li key={item._id}>
+                {/* <Link legacyBehavior href={`/${item._id}`}> */}
+                <Link legacyBehavior href="">
                   {/* <a>{item} <span className="post-count">(03)</span></a> */}
-                  <a>{item} <span className="post-count"></span></a>
+                  <a onClick={(e) => e.preventDefault()}>{item.categoryName} <span className="post-count"></span></a>
                 </Link>
               </li>
             )
           })}
+
         </ul>
       </div>
 
