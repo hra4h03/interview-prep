@@ -272,6 +272,9 @@ h6 {
   background-color: #eee8df;
 }
 
+.pt-25 {
+  padding-top: 25px;
+}
 .ptb-100 {
   padding-top: 100px;
   padding-bottom: 100px;

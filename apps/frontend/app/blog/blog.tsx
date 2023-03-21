@@ -6,9 +6,7 @@ import Sidebar from '../sidebar/sidebar';
 /* eslint-disable-next-line */
 export interface BlogProps { }
 
-export async function getList() {
-  return fetch(`${API_URL}/posts`).then(data => data.json())
-}
+const getList = async () => await (await fetch(`${API_URL}/posts`)).json()
 
 export function Blog(props: BlogProps) {
   const [items, setItems] = useState([]);
@@ -18,19 +16,18 @@ export function Blog(props: BlogProps) {
   }, [])
 
   return (
-    <div className="blog-area ptb-100">
+    <div className="blog-area pt-25 pb-100">
       <div className="container">
         <div className="row">
 
           <div className="col-lg-9 col-md-12">
             <div className="row" >
-
-              {items.map((item, index) => {
+              {items.map((item) => {
                 return (
-                  <div className="col-lg-4 col-md-6" key={index}>
+                  <div className="col-lg-4 col-md-6" key={item._id}>
                     <div className="single-blog-post-box">
                       <div className="post-image">
-                        <Link legacyBehavior href="/single-blog-1">
+                        <Link legacyBehavior href={`/blog-details/${item._id}.tsx`}>
                           <a className="d-block">
                             <img src={item.categoryImage} alt="image" />
                           </a>
@@ -41,19 +38,19 @@ export function Blog(props: BlogProps) {
                           <a className="category">{item.categoryName}</a>
                         </Link>
                         <h3>
-                          <Link legacyBehavior href="/single-blog-1">
+                          <Link legacyBehavior href={`/blog-details/${item._id}`}>
                             <a>{item.title}</a>
                           </Link>
                         </h3>
                         <ul className="post-content-footer d-flex justify-content-between align-items-center">
-                          <li>
+                          {/* <li>
                             <div className="post-author d-flex align-items-center">
                               <img src="/images/user1.jpg" className="rounded-circle" alt="image" />
                               <span>{item.author}</span>
                             </div>
-                          </li>
+                          </li> */}
                           <li>
-                            <i className='flaticon-calendar'></i> {item.updated_at}
+                            <i className='flaticon-calendar'></i> {item.updatedAt.split('T')[0]}
                           </li>
                         </ul>
                       </div>

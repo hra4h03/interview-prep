@@ -48,7 +48,7 @@ export function Sidebar(props: SidebarProps) {
               <div className="info">
                 <span>{item.created_at}</span>
                 <h4 className="title usmall">
-                  <Link legacyBehavior href="#">
+                  <Link legacyBehavior href={`/blog-details/${item._id}.tsx`}>
                     <a>{item.title}</a>
                   </Link>
                 </h4>
