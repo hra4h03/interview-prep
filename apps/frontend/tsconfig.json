@@ -13,7 +13,16 @@
     "incremental": true,
     "types": ["jest", "node"]
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts", "app/blog/blog.spec.tsx--", "pages/form.tsx"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "next-env.d.ts",
+    "app/blog/blog.spec.tsx--",
+    "pages/form.tsx",
+    "app/store/slices/categorySlice.ts--"
+  ],
   "exclude": [
     "node_modules",
     "jest.config.ts",

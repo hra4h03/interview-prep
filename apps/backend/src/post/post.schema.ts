@@ -19,9 +19,6 @@ class PostDocument extends Document {
     @Prop()
     updatedAt?: Date
 
-    // @Prop()
-    // categoryName: []
-
     @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Category' })
     categoryName: Category
 

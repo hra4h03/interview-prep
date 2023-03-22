@@ -8,10 +8,12 @@ import "../styles/flaticon.css";
 import "../styles/style.css";
 import "../styles/responsive.css";
 import Navbar from '../app/navbar/navbar';
+import { Provider } from 'react-redux';
+import { store, wrapper } from '../app/store/store';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <Provider store={store}>
       <Head>
         <title>Interview prep!</title>
       </Head>
@@ -19,8 +21,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <Navbar user={undefined}></Navbar>
         <Component {...pageProps} />
       </main>
-    </>
+    </Provider>
   );
 }
 
-export default CustomApp;
+// export default CustomApp;
+export default wrapper.withRedux(CustomApp);

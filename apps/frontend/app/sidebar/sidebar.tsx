@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { API_URL } from '../constants';
+import { getPostsByCategory } from '../store/slices/blogSlice';
+import { AppDispatch } from '../store/store';
 
 /* eslint-disable-next-line */
 export interface SidebarProps { }
@@ -11,6 +14,7 @@ const getCategories = () => fetch(`${API_URL}/categories`).then(data => data.jso
 export function Sidebar(props: SidebarProps) {
   const [latest, setLatest] = useState([]);
   const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     getLatest().then(latest => setLatest(latest))
@@ -69,7 +73,10 @@ export function Sidebar(props: SidebarProps) {
                 {/* <Link legacyBehavior href={`/${item._id}`}> */}
                 <Link legacyBehavior href="">
                   {/* <a>{item} <span className="post-count">(03)</span></a> */}
-                  <a onClick={(e) => e.preventDefault()}>{item.categoryName} <span className="post-count"></span></a>
+                  <a onClick={(e) => {
+                    // e.preventDefault()
+                    dispatch(getPostsByCategory(item._id))
+                  }}>{item.categoryName} <span className="post-count"></span></a>
                 </Link>
               </li>
             )
