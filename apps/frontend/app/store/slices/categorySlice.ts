@@ -16,10 +16,10 @@ const initialState = {
     error: ''
 };
 
-export const getPostsByCategory =
-    createAsyncThunk('category/posts/category', async (id: string) => {
-        return (await fetch(`${API_URL}/posts/category/${id}`)).json()
-    });
+// export const getPostsByCategory =
+//     createAsyncThunk('category/posts/category', async (id: string) => {
+//         return (await fetch(`${API_URL}/posts/category/${id}`)).json()
+//     });
 
 export const getCategories =
     createAsyncThunk('categories', async () => {
@@ -32,19 +32,19 @@ const categorySlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getPostsByCategory.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(getPostsByCategory.fulfilled, (state, action) => {
-                state.articles = action.payload;
-                state.loading = false;
-                state.error = '';
-            })
-            .addCase(getPostsByCategory.rejected, (state, action) => {
-                state.loading = false;
-                state.articles = [];
-                state.error = action.error.message
-            })
+            // .addCase(getPostsByCategory.pending, (state) => {
+            //     state.loading = true;
+            // })
+            // .addCase(getPostsByCategory.fulfilled, (state, action) => {
+            //     state.articles = action.payload;
+            //     state.loading = false;
+            //     state.error = '';
+            // })
+            // .addCase(getPostsByCategory.rejected, (state, action) => {
+            //     state.loading = false;
+            //     state.articles = [];
+            //     state.error = action.error.message
+            // })
             .addCase(getCategories.pending, (state) => {
                 state.loading = true;
             })
