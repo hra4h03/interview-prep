@@ -1,22 +1,19 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { API_URL } from '../constants';
-import { getPostsByCategory } from '../store/slices/blogSlice';
 import { RootState, AppDispatch } from '../store/store';
+import { getPostsByCategory, getCategories } from '../store/slices/categorySlice';
 
 /* eslint-disable-next-line */
 export interface SidebarCategoryProps { }
-const getCategories = () => fetch(`${API_URL}/categories`).then(data => data.json());
 
 export function SidebarCategory(props: SidebarCategoryProps) {
-  const blog = useSelector((store: RootState) => store.blog);
-  const [categories, setCategories] = useState([]);
+  const store = useSelector((store: RootState) => store.category);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    getCategories().then(categories => setCategories(categories))
-  }, [])
+    dispatch(getCategories())
+  }, [dispatch])
 
   return (
     <>
@@ -24,7 +21,7 @@ export function SidebarCategory(props: SidebarCategoryProps) {
         <h3 className="widget-title">Popular Tags</h3>
 
         <div className="tagcloud">
-          {categories.map((item) => {
+          {store.categories.map((item) => {
             return (
               <>
                 <Link legacyBehavior href="#">
