@@ -1,46 +1,62 @@
-import { Post } from './post.schema';
-import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreatePostDTO } from './dto/create-post.dto';
+import { Db } from 'mongodb';
 
 @Injectable()
 export class PostService {
 
-    constructor(@InjectModel('Post') private readonly _postModel: Model<Post>) { }
+    private blogCollection = this.db.collection('posts');
+    private catCollection = this.db.collection('categories');
+
+    constructor(@Inject('DATABASE_CONNECTION') private db: Db) { }
 
     async getPosts() {
-        const posts = await this._postModel.find().exec();
-        return posts;
+        return this.blogCollection.find({}).toArray();
     }
 
     async getLatestPosts() {
-        const posts = await this._postModel.find({}).sort({ $natural: -1 }).skip(0).limit(10).exec();
+        const posts = this.db.collection('posts').find({}).sort({ $natural: -1 }).skip(0).limit(10);
         return posts;
     }
 
     async getPost(postID) {
-        const post = await this._postModel.findById(postID).exec();
+        const post = await this.blogCollection.findOne(postID);
         return post;
     }
 
-    async getPostsByCategory(categoryID) {
-        const posts = await this._postModel.find({ _id: categoryID }).populate('category').exec();
+    async getPostsByCategory(categoryId) {
+        const posts = this.blogCollection.aggregate([
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: categoryId,
+                    foreignField: '_id',
+                    as: "posts_by_categories"
+                }
+            },
+            { $match: { categoryId: categoryId } },
+            {
+                $project: {
+                    "posts_by_categories": 0
+                }
+            }
+        ])
         return posts;
     }
 
     async addPost(createPostDTO: CreatePostDTO) {
-        const newPost = await this._postModel.create(createPostDTO);
-        return newPost.save();
+        const inserted = await this.blogCollection.insertOne(createPostDTO, {});
+        const post = await this.blogCollection.findOne({ _id: inserted.insertedId });
+        return post;
     }
 
-    async editPost(postID, createPostDTO: CreatePostDTO) {
-        const editedPost = await this._postModel.findByIdAndUpdate(postID, createPostDTO, { new: true });
-        return editedPost;
-    }
+    // async editPost(postID, createPostDTO: CreatePostDTO) {
+    //     const editedPost = await this.db.collection('posts').findByIdAndUpdate(postID, createPostDTO, { new: true });
+    //     return editedPost;
+    // }
 
     async deletePost(postID) {
-        const deletedPost = await this._postModel.findByIdAndRemove(postID);
+        const deletedPost = await this.db.collection('posts').findOneAndDelete(postID);
         return deletedPost;
     }
 }

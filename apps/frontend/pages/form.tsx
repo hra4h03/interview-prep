@@ -7,7 +7,7 @@ export interface FormProps { }
 
 const getCategories = () => fetch(`${API_URL}/categories`).then(data => data.json());
 
-const INITIAL_USER = {
+const INITIAL_FORM_DATA = {
   title: "",
   description: "",
   categoryName: "",
@@ -15,31 +15,41 @@ const INITIAL_USER = {
 };
 
 export function Form(props: FormProps) {
-  const [article, setArticle] = React.useState(INITIAL_USER);
-  const [disabled, setDisabled] = useState(true);
+  const [formData, setFormData] = React.useState(INITIAL_FORM_DATA);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const isArticle = Object.values(article).every((el) => Boolean(el));
-    isArticle ? setDisabled(false) : setDisabled(true);
-    getCategories().then(categories => setCategories(categories))
-  }, [article]);
+    init();
+  }, []);
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setArticle((prevState) => ({ ...prevState, [name]: value }));
-};
+  const init = () => {
+    getCategories().then(categories => {
+      setCategories(categories);
+      setFormData((prevState) => ({ ...prevState, categoryName: categories[0].categoryName, categoryId: categories[0]._id }));
+    })
+  }
+
+  const selectedIdOnChange = (e, attr) => {
+    const { name, value } = e.target;
+    const idChosen = e.target.children[e.target.selectedIndex]?.getAttribute(attr)
+    setFormData((prevState) => ({ ...prevState, [name]: value, categoryId: idChosen }));
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      article.categoryImage = `${CLOUDINARY_BASE_URL}/${CLOUDINARY_ID}/${CLOUDINARY_FOLDER}/${article.categoryName}.png`;
+      formData.categoryImage = `${CLOUDINARY_BASE_URL}/${CLOUDINARY_ID}/${CLOUDINARY_FOLDER}/${formData.categoryName}.png`;
       const url = `${API_URL}/post`;
-      const payload = { ...article };
+      const payload = { ...formData };
       console.log('payload ', payload);
       const response = await axios.post(url, payload);
       if (response.status === 200) {
-        alert('Article posted successfully!')
+        alert('form data posted successfully!')
       }
     } catch (error) {
       alert(error?.response?.data?.message)
@@ -48,50 +58,31 @@ const handleChange = (e) => {
   };
   return (
     <div className="create-article-form">
-      <h2>Create article</h2>
+      <h2>Create formData</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Title</label>
-          <input
-            type="description"
-            className="form-control"
-            placeholder="Full Name"
-            name="title"
-            value={article.title}
-            onChange={handleChange}
-          />
+          <input required type="description" className="form-control" placeholder="Full Name"
+            name="title" value={formData.title} onChange={handleChange} />
         </div>
 
         <div className="form-group">
           <label>Description</label>
-          <textarea
-            className="form-control"
-            placeholder="Description"
-            name="description"
-            value={article.description}
-            rows="10"
-            onChange={handleChange}
-          />
+          <textarea required className="form-control" placeholder="Description" name="description"
+            value={formData.description} rows="10" onChange={handleChange} />
         </div>
 
         <div className="form-group">
           <label>Category</label>
-          <select
-            className="form-control"
-            placeholder="category name"
-            name='categoryName'
-            defaultValue={article.categoryName}
-            onChange={handleChange}
-          >
-            {categories.map((item) => <option key={item._id}>{item.categoryName}</option>)}
+          <select className="form-control" placeholder="category name"
+            name='categoryName' defaultValue={formData.categoryName}
+            onChange={(e) => selectedIdOnChange(e, 'data-id')}>
+            {categories.map((item) => <option key={item._id} data-id={item._id}>{item.categoryName}</option>)}
           </select>
         </div>
 
-        {/* <button type="submit" disabled={disabled}> */}
-        <button type="submit">
-          Create
-        </button>
+        <button type="submit">Create</button>
       </form>
     </div>
   );

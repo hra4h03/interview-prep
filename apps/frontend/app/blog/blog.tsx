@@ -10,11 +10,13 @@ import { getArticles } from '../store/slices/blogSlice';
 export interface BlogProps { }
 export function Blog(props: BlogProps) {
   const blog = useSelector((store: RootState) => store.blog);
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    // dispatch(getArticles())
-  }, [])
+    dispatch(getArticles())
+  }, [dispatch])
+
 
   return (
     <div className="blog-area pt-25 pb-100">
@@ -24,8 +26,9 @@ export function Blog(props: BlogProps) {
           <div className="col-lg-9 col-md-12">
             <div className="row" >
               {blog.loading && <div>Loading...</div>}
+              {!blog.loading && blog.error === '' && blog.articles.length === 0 && <div>No data in this category...</div>}
               {!blog.loading && blog.error ? <div>Error: {blog.error}</div> : null}
-              {!blog.loading && !blog.error && blog.articles.length ? (
+              {!blog.loading && blog.error === '' && blog.articles.length > 0 ? (
                 <>
                   {blog.articles.map((item) => {
                     return (
@@ -55,7 +58,8 @@ export function Blog(props: BlogProps) {
                             </div>
                           </li> */}
                               <li>
-                                <i className='flaticon-calendar'></i> {item.updatedAt.split('T')[0]}
+                                {/* <i className='flaticon-calendar'></i> {item.updatedAt.split('T')[0]} */}
+                                <i className='flaticon-calendar'></i> {item.updatedAt}
                               </li>
                             </ul>
                           </div>

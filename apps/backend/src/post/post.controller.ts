@@ -26,9 +26,9 @@ export class PostController {
         return res.status(HttpStatus.OK).json(post);
     }
 
-    @Get('posts/category/:categoryID')
-    async getPostsByCategory(@Res() res, @Param('categoryID', new ValidateObjectId()) categoryID) {
-        const posts = await this.postService.getPostsByCategory(categoryID);
+    @Get('posts/category/:categoryName')
+    async getPostsByCategory(@Res() res, @Param('categoryName',) categoryName) {
+        const posts = await (await this.postService.getPostsByCategory(categoryName)).toArray();
         if (!posts) throw new NotFoundException('Post does not exist!');
         return res.status(HttpStatus.OK).json(posts);
     }
@@ -43,27 +43,27 @@ export class PostController {
         })
     }
 
-    @Put('/edit')
-    async editPost(
-        @Res() res,
-        @Query('postID', new ValidateObjectId()) postID,
-        @Body() createPostDTO: CreatePostDTO
-    ) {
-        const editedPost = await this.postService.editPost(postID, createPostDTO);
-        if (!editedPost) throw new NotFoundException('Post does not exist!');
-        return res.status(HttpStatus.OK).json({
-            message: 'Post has been successfully updated',
-            post: editedPost
-        })
-    }
+    // @Put('/edit')
+    // async editPost(
+    //     @Res() res,
+    //     @Query('postID', new ValidateObjectId()) postID,
+    //     @Body() createPostDTO: CreatePostDTO
+    // ) {
+    //     const editedPost = await this.postService.editPost(postID, createPostDTO);
+    //     if (!editedPost) throw new NotFoundException('Post does not exist!');
+    //     return res.status(HttpStatus.OK).json({
+    //         message: 'Post has been successfully updated',
+    //         post: editedPost
+    //     })
+    // }
 
-    @Delete('/delete')
-    async deletePost(@Res() res, @Query('postID', new ValidateObjectId()) postID) {
-        const deletedPost = await this.postService.deletePost(postID);
-        if (!deletedPost) throw new NotFoundException('Post does not exist!');
-        return res.status(HttpStatus.OK).json({
-            message: 'Post has been deleted!',
-            post: deletedPost
-        })
-    }
+    // @Delete('/delete')
+    // async deletePost(@Res() res, @Query('postID', new ValidateObjectId()) postID) {
+    //     const deletedPost = await this.postService.deletePost(postID);
+    //     if (!deletedPost) throw new NotFoundException('Post does not exist!');
+    //     return res.status(HttpStatus.OK).json({
+    //         message: 'Post has been deleted!',
+    //         post: deletedPost
+    //     })
+    // }
 }

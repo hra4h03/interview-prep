@@ -21,6 +21,34 @@ export function Sidebar(props: SidebarProps) {
     getCategories().then(categories => setCategories(categories))
   }, [])
 
+  const renderLatest = () => {
+    if (latest.length > 0) {
+      latest.map((item, index) => {
+        return (
+          <div className="item" key={index}>
+            <Link legacyBehavior href="#">
+              <a className="thumb">
+                <img src={item.categoryImage} alt={item.categoryName}></img>
+              </a>
+            </Link>
+            <div className="info">
+              <span>{item.createdAt}</span>
+              <h4 className="title usmall">
+                <Link legacyBehavior href={`/blog-details/${item._id}.tsx`}>
+                  <a>{item.title}</a>
+                </Link>
+              </h4>
+            </div>
+
+            <div className="clear"></div>
+          </div>
+        )
+      })
+    }
+  }
+
+
+
   return (
     <div className="widget-area">
       <div className="widget widget_search">
@@ -38,29 +66,7 @@ export function Sidebar(props: SidebarProps) {
 
       <div className="widget widget_blog_posts_thumb">
         <h3 className="widget-title">Popular Posts</h3>
-
-        {latest?.map((item, index) => {
-          return (
-            <div className="item" key={index}>
-              <Link legacyBehavior href="#">
-                <a className="thumb">
-                  <img src={item.categoryImage} alt={item.categoryName}></img>
-                </a>
-              </Link>
-              <div className="info">
-                <span>{item.createdAt}</span>
-                <h4 className="title usmall">
-                  <Link legacyBehavior href={`/blog-details/${item._id}.tsx`}>
-                    <a>{item.title}</a>
-                  </Link>
-                </h4>
-              </div>
-
-              <div className="clear"></div>
-            </div>
-          )
-        })}
-
+        {renderLatest()}
       </div>
 
       <div className="widget widget_categories">

@@ -20,7 +20,6 @@ export const getArticles =
 
 export const getPostsByCategory =
     createAsyncThunk('category/posts/category', async (id: string) => {
-        console.log('id in slice ', id);
         return (await fetch(`${API_URL}/posts/category/${id}`)).json()
     });
 
@@ -47,7 +46,7 @@ const blogSlice = createSlice({
                 state.loading = true;
             })
             .addCase(getPostsByCategory.fulfilled, (state, action) => {
-                console.log('cat ', action);
+                console.log('blogSlice:: getPostsByCategory:: action:', action);
                 state.articles = action.payload;
                 state.loading = false;
                 state.error = '';

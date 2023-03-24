@@ -1,5 +1,3 @@
-// import { MongoClient } from '@nestjs/mongoose';
-// let { MongoClient } = require('@nestjs/mongoose')
 const { MongoClient } = require('mongodb');
 // const CATEGORIES = ['misc', 'javascript', 'bash', 'sequelize', 'pc', 'aws', 'react', 'html', 'css', 'nodejs', 'mongo', 'sql', 'git', 'jenkins', 'cicd', 'bitbucket', 'python', 'expressjs'];
 const CATEGORIES = [

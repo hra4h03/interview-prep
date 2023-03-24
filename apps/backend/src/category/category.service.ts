@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { Category } from './category.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { Db } from 'mongodb';
 
 @Injectable()
 export class CategoryService {
 
-    constructor(@InjectModel('Category') private readonly _categoryModel: Model<Category>) { }
+    private catCollection = this.db.collection('categories');
+
+    constructor(@Inject('DATABASE_CONNECTION') private db: Db) { }
 
     async getCategories() {
-        const categories = await this._categoryModel.find({}).exec();
-        return categories;
+        return await this.catCollection.find({}).toArray();
     }
 }
