@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../store/store';
-import { getPostsByCategory, getCategories } from '../store/slices/categorySlice';
+import { getCategories } from '../store/slices/categorySlice';
+import { getPostsByCategory } from '../store/slices/blogSlice';
 
 /* eslint-disable-next-line */
 export interface SidebarCategoryProps { }
