@@ -10,7 +10,6 @@ import { getArticles } from '../store/slices/blogSlice';
 export interface BlogProps { }
 export function Blog(props: BlogProps) {
   const blog = useSelector((store: RootState) => store.blog);
-
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export function Blog(props: BlogProps) {
                       <div className="col-lg-4 col-md-6" key={item._id}>
                         <div className="single-blog-post-box">
                           <div className="post-image">
-                            <Link legacyBehavior href={`/blog-details/${item._id}.tsx`}>
+                            <Link legacyBehavior href={`/blog-details/${item._id}`}>
                               <a className="d-block">
                                 <img src={item.categoryImage} alt="image" />
                               </a>

@@ -13,9 +13,9 @@ export class PostController {
         return res.status(HttpStatus.OK).json(posts);
     }
 
-    @Get('latest')
-    async getLatestPosts(@Res() res) {
-        const posts = await this.postService.getLatestPosts();
+    @Get('popular')
+    async getPopularPosts(@Res() res) {
+        const posts = await this.postService.getPopularPosts();
         return res.status(HttpStatus.OK).json(posts);
     }
 

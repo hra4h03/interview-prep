@@ -1,8 +1,8 @@
-import Sidebar from '../../app/sidebar/sidebar';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { API_URL } from '../../app/constants';
 import { useRouter } from 'next/router';
+import SidebarSearch from 'apps/frontend/app/sidebar-search/sidebar-search';
+import SidebarPost from 'apps/frontend/app/sidebar-post/sidebar-post';
 
 /* eslint-disable-next-line */
 export interface BlogDetailsProps {
@@ -114,7 +114,7 @@ export function BlogDetails(props: BlogDetailsProps) {
                   {/* <a href="#">Fashion</a>
                   <a href="#">Games</a>
                   <a href="#">Travel</a> */}
-                  <a href="#">Category: {item.categoryName[0]}</a>
+                  <a href="#">Category: {item.categoryName}</a>
                   {/* <p>Category: {item.categoryName[0]}</p> */}
                 </div>
 
@@ -133,16 +133,16 @@ export function BlogDetails(props: BlogDetailsProps) {
                 <div className="author-profile-header"></div>
                 <div className="author-profile">
                   <div className="author-profile-title">
-                    <img src="/images/user1.jpg" className="shadow-sm" alt="image" />
+                    <img src="/images/user.png" className="shadow-sm" alt="image" />
 
                     <div className="author-profile-title-details">
                       <div className="author-profile-details">
-                        <h4>Chris Orwig</h4>
-                        <span className="d-block">Photographer, Author, Writer</span>
+                        <h4>Kiriti Komaragiri</h4>
+                        <span className="d-block">Trainer, Author, Writer</span>
                       </div>
                     </div>
                   </div>
-                  <p>Chris Orwig is a celebrated photographer, author, and writer who brings passion to everything he does.</p>
+                  <p>Kiriti is a experienced trainer, author, and writer who brings passion to everything he does.</p>
                 </div>
               </div>
 
@@ -190,7 +190,10 @@ export function BlogDetails(props: BlogDetailsProps) {
           </div>
 
           <div className="col-lg-3 col-md-12">
-            <Sidebar />
+            <div className="widget-area">
+              <SidebarSearch />
+              <SidebarPost />
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { CreatePostDTO } from './dto/create-post.dto';
-import { Db } from 'mongodb';
+import { Db, ObjectId } from 'mongodb';
 
 @Injectable()
 export class PostService {
@@ -14,13 +14,13 @@ export class PostService {
         return this.blogCollection.find({}).toArray();
     }
 
-    async getLatestPosts() {
-        const posts = this.db.collection('posts').find({}).sort({ $natural: -1 }).skip(0).limit(10);
-        return posts;
+    async getPopularPosts() {
+        return this.blogCollection.find({}).sort({ $natural: -1 }).skip(0).limit(5).toArray();
     }
 
     async getPost(postID) {
-        const post = await this.blogCollection.findOne(postID);
+        const o_id = new ObjectId(postID);
+        const post = await this.blogCollection.findOne({ "_id": o_id });
         return post;
     }
 
