@@ -19,27 +19,26 @@ export function SidebarCategory(props: SidebarCategoryProps) {
   }, [])
 
   return (
-    <div className="widget widget_categories">
-      <h3 className="widget-title">Categories</h3>
+    <>
+      <div className="widget widget_tag_cloud">
+        <h3 className="widget-title">Popular Tags</h3>
 
-      <ul>
-        {categories.map((item) => {
-          return (
-            <li key={item._id}>
-              {/* <Link legacyBehavior href={`/${item._id}`}> */}
-              <Link legacyBehavior href="">
-                {/* <a>{item} <span className="post-count">(03)</span></a> */}
-                <a onClick={(e) => {
-                  // e.preventDefault()
-                  dispatch(getPostsByCategory(item._id))
-                }}>{item.categoryName} <span className="post-count"></span></a>
-              </Link>
-            </li>
-          )
-        })}
-
-      </ul>
-    </div>
+        <div className="tagcloud">
+          {categories.map((item) => {
+            return (
+              <>
+                <Link legacyBehavior href="#">
+                  <a onClick={(e) => dispatch(getPostsByCategory(item._id))}>
+                    {/* {item.categoryName} <span className="tag-link-count"> (3)</span> */}
+                    {item.categoryName} <span className="tag-link-count"></span>
+                  </a>
+                </Link>
+              </>
+            )
+          })}
+        </div>
+      </div>
+    </>
   );
 }
 

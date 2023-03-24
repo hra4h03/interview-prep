@@ -20,60 +20,6 @@ export function Sidebar(props: SidebarProps) {
 
       <SidebarCategory></SidebarCategory>
 
-      {/* <div className="widget widget_tag_cloud">
-        <h3 className="widget-title">Popular Tags</h3>
-
-        <div className="tagcloud">
-          <Link legacyBehavior href="#">
-            <a>
-              Business <span className="tag-link-count"> (3)</span>
-            </a>
-          </Link>
-
-          <Link legacyBehavior href="#">
-            <a>
-              Design <span className="tag-link-count"> (3)</span>
-            </a>
-          </Link>
-
-          <Link legacyBehavior href="#">
-            <a>
-              Braike <span className="tag-link-count"> (2)</span>
-            </a>
-          </Link>
-
-          <Link legacyBehavior href="#">
-            <a>
-              Fashion <span className="tag-link-count"> (2)</span>
-            </a>
-          </Link>
-
-          <Link legacyBehavior href="#">
-            <a>
-              Travel <span className="tag-link-count"> (1)</span>
-            </a>
-          </Link>
-
-          <Link legacyBehavior href="#">
-            <a>
-              Smart <span className="tag-link-count"> (1)</span>
-            </a>
-          </Link>
-
-          <Link legacyBehavior href="#">
-            <a>
-              Marketing <span className="tag-link-count"> (1)</span>
-            </a>
-          </Link>
-
-          <Link legacyBehavior href="#">
-            <a>
-              Tips <span className="tag-link-count"> (2)</span>
-            </a>
-          </Link>
-        </div>
-      </div> */}
-
     </div>
   );
 }
