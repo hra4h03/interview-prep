@@ -1,7 +1,4 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Category } from './category.schema';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
 import { Db } from 'mongodb';
 
 @Injectable()
