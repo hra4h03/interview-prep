@@ -12,12 +12,13 @@ import { CategoryController } from '../category/category.controller';
 import { SearchModule } from '../search/search.module';
 import { SearchController } from '../search/search.controller';
 import { SearchService } from '../search/search.service';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    DatabaseModule, SearchModule
+    DatabaseModule, SearchModule, ConfigModule
   ],
   controllers: [AppController, PostController, CategoryController, SearchController],
-  providers: [AppService, PostService, CategoryService, SearchService],
+  providers: [AppService, PostService, CategoryService, SearchService, ConfigService],
 })
 export class AppModule { }
