@@ -31,70 +31,18 @@ export class SearchService {
         body: {
           mappings: {
             properties: {
-              '@timestamp': {
-                type: 'date',
-              },
-              budget: {
-                type: 'long',
-              },
-              genres: {
-                type: 'text',
-              },
-              homepage: {
-                type: 'keyword',
-              },
-              id: {
-                type: 'long',
-              },
-              keywords: {
-                type: 'text',
-              },
-              original_language: {
-                type: 'keyword',
-              },
-              original_title: {
-                type: 'text',
-              },
-              overview: {
-                type: 'text',
-              },
-              popularity: {
-                type: 'double',
-              },
-              production_companies: {
-                type: 'text',
-              },
-              production_countries: {
-                type: 'text',
-              },
-              release_date: {
-                type: 'date',
-                format: 'iso8601',
-              },
-              revenue: {
-                type: 'long',
-              },
-              runtime: {
-                type: 'long',
-              },
-              spoken_languages: {
-                type: 'text',
-              },
-              status: {
-                type: 'keyword',
-              },
-              tagline: {
-                type: 'text',
-              },
               title: {
                 type: 'text',
               },
-              vote_average: {
-                type: 'double',
+              description: {
+                type: 'text',
               },
-              vote_count: {
-                type: 'long',
+              categoryName: {
+                type: 'text',
               },
+              categoryImage: {
+                type: 'text',
+              }
             },
           },
         },
