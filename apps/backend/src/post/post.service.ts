@@ -49,9 +49,9 @@ export class PostService {
     async addPost(createPostDTO: CreatePostDTO) {
         const inserted = await this.blogCollection.insertOne(createPostDTO, {});
         const post = await this.blogCollection.findOne({ _id: inserted.insertedId });
-        // const { title, description, categoryId, categoryName, categoryImage } = post;
-        // const indexPost = { id: (post._id).toString(), title, description, categoryId, categoryName, categoryImage }
-        // await this.searchService.indexQuestion(indexPost)
+        const { title, description, categoryId, categoryName, categoryImage } = post;
+        const indexPost = { id: (post._id).toString(), title, description, categoryId, categoryName, categoryImage }
+        await this.searchService.indexQuestion(indexPost)
         return post;
     }
 
