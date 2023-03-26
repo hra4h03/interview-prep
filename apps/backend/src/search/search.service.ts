@@ -110,8 +110,8 @@ export class SearchService {
         size: 50,
         query: {
           match_phrase: search
-        },
-      },
+        }
+      }
     });
     const hits = response.hits.hits;
     hits.map((item) => {

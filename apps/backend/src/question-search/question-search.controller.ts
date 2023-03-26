@@ -1,8 +1,8 @@
-import { SearchService } from './../search/search.service';
+import { SearchService } from '../search/search.service';
 import { Body, Controller, Post } from '@nestjs/common';
 
 @Controller('movies')
-export class MoviesController {
+export class QuestionSearchController {
   constructor(private readonly searchService: SearchService) {}
 
   @Post('search')
