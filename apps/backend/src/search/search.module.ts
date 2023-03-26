@@ -2,7 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { SearchService } from "./search.service";
 import { SearchController } from "./search.controller";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { ElasticsearchModule, ElasticsearchService } from "@nestjs/elasticsearch";
+import { ElasticsearchModule } from "@nestjs/elasticsearch";
 
 @Global()
 @Module({
