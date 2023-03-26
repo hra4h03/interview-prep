@@ -9,9 +9,11 @@ import "../styles/style.css";
 import "../styles/responsive.css";
 import Navbar from '../app/navbar/navbar';
 import { Provider } from 'react-redux';
-import { store, wrapper } from '../app/store/store';
+import { wrapper } from '../app/store/store';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+function CustomApp({ Component, ...rest }: AppProps) {
+  const { store, props } = wrapper.useWrappedStore(rest);
+  const { pageProps } = props;
   return (
     <Provider store={store}>
       <Head>
