@@ -1,9 +1,10 @@
-import { Module } from "@nestjs/common";
+import { Global, Module } from '@nestjs/common';
 import { SearchService } from "./search.service";
 import { SearchController } from "./search.controller";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { ElasticsearchModule, ElasticsearchService } from "@nestjs/elasticsearch";
 
+@Global()
 @Module({
   imports: [
     ConfigModule,
@@ -22,7 +23,7 @@ import { ElasticsearchModule, ElasticsearchService } from "@nestjs/elasticsearch
     }),
   ],
   controllers: [SearchController],
-  providers: [ElasticsearchService, SearchService],
-  exports: [SearchService],
+  providers: [SearchService],
+  exports: [ElasticsearchModule, SearchService],
 })
 export class SearchModule {}
