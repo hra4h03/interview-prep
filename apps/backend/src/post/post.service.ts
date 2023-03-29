@@ -1,5 +1,4 @@
-/* eslint-disable prefer-const */
-import { SearchService } from './../search/search.service';
+import { IndexService } from './../indexing/indexService';
 import { Injectable, Inject } from '@nestjs/common';
 import { CreatePostDTO } from './dto/create-post.dto';
 import { Db, ObjectId } from 'mongodb';
@@ -8,9 +7,8 @@ import { Db, ObjectId } from 'mongodb';
 export class PostService {
 
     private blogCollection = this.db.collection('posts');
-    private catCollection = this.db.collection('categories');
 
-    constructor(@Inject('DATABASE_CONNECTION') private db: Db, private searchService: SearchService) { }
+    constructor(@Inject('DATABASE_CONNECTION') private db: Db, private indexService: IndexService) { }
 
     async getPosts() {
         return this.blogCollection.find({}).toArray();
@@ -49,11 +47,7 @@ export class PostService {
     async addPost(createPostDTO: CreatePostDTO) {
         const inserted = await this.blogCollection.insertOne(createPostDTO, {});
         const post = await this.blogCollection.findOne({ _id: inserted.insertedId });
-        const { title, description, categoryId, categoryName, categoryImage } = post;
-        this.searchService.createIndexType();
-        const postId = (post._id).toString();
-        const indexPost = { id: postId, title, description, categoryId, categoryName, categoryImage }
-        await this.searchService.indexQuestion(indexPost)
+        await this.indexService.createIndex(post)
         return post;
     }
 
