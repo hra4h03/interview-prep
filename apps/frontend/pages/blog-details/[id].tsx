@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { API_URL } from '../../app/constants';
 import { useRouter } from 'next/router';
-import SidebarSearch from 'apps/frontend/app/sidebar-search/sidebar-search';
-import SidebarPost from 'apps/frontend/app/sidebar-post/sidebar-post';
+import SidebarSearch from '../../app/sidebar-search/sidebar-search';
+import SidebarPost from '../../app/sidebar-post/sidebar-post';
 
 /* eslint-disable-next-line */
 export interface BlogDetailsProps {

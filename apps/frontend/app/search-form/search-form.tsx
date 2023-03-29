@@ -1,19 +1,36 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import Router from 'next/router';
+import debounce from "lodash.debounce";
 
 const SearchForm = () => {
-
   const [search, setSearch] = React.useState({ search: '' })
 
   const handleOnChange = (e) => {
+    console.log('e.target.value ', e.target.value);
     const { name, value } = e.target;
     setSearch(prevState => ({ ...prevState, [name]: value }))
   }
 
-  const handleSearch = (e) => {
-    e.preventDefault()
+  const debouncedResults = useMemo(() => {
+    return debounce(handleOnChange, 500);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    console.log('search on submit ', search);
+    // const url = `${API_URL}/search?title=${search.search}`
+    // const response = await axios.get(url)
+    // console.log(response)
+    // return response.data
+    
     Router.push({
-      pathname: '/courses/search',
+      pathname: '/blog/search',
       query: { q: search.search }
     })
   }
@@ -21,12 +38,12 @@ const SearchForm = () => {
   return (
     <form className="search-box" onSubmit={handleSearch}>
       <input
+
         type="text"
         className="input-search"
         placeholder="Search for anything"
         name='search'
-        value={search.search}
-        onChange={handleOnChange}
+        onChange={debouncedResults}
       />
       <button type="submit">
         <i className="flaticon-search"></i>

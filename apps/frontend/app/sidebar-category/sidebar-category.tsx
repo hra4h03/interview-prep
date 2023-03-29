@@ -22,16 +22,16 @@ export function SidebarCategory(props: SidebarCategoryProps) {
         <h3 className="widget-title">Popular Tags</h3>
 
         <div className="tagcloud">
-          {store.categories.map((item) => {
+          {store.categories.map((item, index) => {
             return (
-              <>
-                <Link legacyBehavior href="#">
+              <div key={index}>
+                <Link legacyBehavior href="#" key={index}>
                   <a onClick={(e) => dispatch(getPostsByCategory(item._id))}>
                     {/* {item.categoryName} <span className="tag-link-count"> (3)</span> */}
                     {item.categoryName} <span className="tag-link-count"></span>
                   </a>
                 </Link>
-              </>
+              </div>
             )
           })}
         </div>

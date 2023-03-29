@@ -46,6 +46,7 @@ specifiers:
   jest-environment-jsdom: ^29.4.1
   jest-environment-node: ^29.4.1
   joi: ^17.8.4
+  lodash.debounce: ^4.0.8
   mongodb: ^5.1.0
   mongoose: ^7.0.2
   next: 13.1.1
@@ -76,6 +77,7 @@ dependencies:
   class-transformer: 0.5.1
   class-validator: 0.14.0
   joi: 17.9.1
+  lodash.debounce: 4.0.8
   mongodb: 5.1.0
   mongoose: 7.0.3
   next: 13.1.1_gp75q2njptpltkt3lgvb7s7d3e
@@ -8389,7 +8391,6 @@ packages:
 
   /lodash.debounce/4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
-    dev: true
 
   /lodash.memoize/4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}

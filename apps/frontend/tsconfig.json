@@ -11,7 +11,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "types": ["jest", "node"]
+    "types": [
+      "jest",
+      "node"
+    ],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "**/*.ts",
@@ -21,7 +29,8 @@
     "next-env.d.ts",
     "app/blog/blog.spec.tsx--",
     "pages/form.tsx",
-    "app/store/slices/categorySlice.ts--"
+    "app/store/slices/categorySlice.ts--",
+    "../../apps/frontend/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

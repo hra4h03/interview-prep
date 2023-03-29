@@ -7,7 +7,6 @@ const { withNx } = require('@nrwl/next/plugins/with-nx');
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
-  appDir: true,
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr
@@ -27,6 +26,9 @@ const nextConfig = {
     STRIPE_PUBLISHABLE_KEY:
       "pk_test_51MeyZQSII06WieIttSr6RZvHgfLIMBP8nENfYgWW2ISVHTJSglS6SsDLxPx0Sx9NzzmUt310LP2NleNjinTJL9o100aJUyWLSr",
   },
+  experimental:{
+    appDir: true
+  }
 };
 
 module.exports = withNx(nextConfig);
