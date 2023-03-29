@@ -52,35 +52,6 @@ export class IndexService {
         })
     }
 
-    // async createIndexType() {
-    //   await this.esService.indices.putMapping({
-    //     body: {
-    //       mappings: {
-    //         properties: {
-    //           id: {
-    //             type: 'long'
-    //           },
-    //           title: {
-    //             type: 'text',
-    //           },
-    //           description: {
-    //             type: 'text',
-    //           },
-    //           categoryId:{
-    //             type: 'long'
-    //           },
-    //           categoryName: {
-    //             type: 'text',
-    //           },
-    //           categoryImage: {
-    //             type: 'text',
-    //           }
-    //         },
-    //       },
-    //     },
-    //   })
-    // }
-
     async createIndexType() {
         const index = this.configService.get('ELASTICSEARCH_INDEX');
         const isIndexExist = await this.esService.indices.exists({
