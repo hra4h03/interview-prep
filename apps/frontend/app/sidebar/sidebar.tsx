@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { API_URL } from '../constants';
+import SearchForm from '../search-form/search-form';
 import SidebarCategory from '../sidebar-category/sidebar-category';
 import SidebarPost from '../sidebar-post/sidebar-post';
 import SidebarSearch from '../sidebar-search/sidebar-search';
@@ -14,7 +15,7 @@ export function Sidebar(props: SidebarProps) {
   return (
     <div className="widget-area">
 
-      <SidebarSearch></SidebarSearch>
+      {/* <SidebarSearch></SidebarSearch> */}
 
       <SidebarPost></SidebarPost>
 
