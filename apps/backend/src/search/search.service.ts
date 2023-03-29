@@ -33,7 +33,6 @@ export class SearchService {
   async searchPost(search: { key: string }) {
     const keys = Object.keys(search);
     const searchQuery = { [keys[0]]: search[keys[0]] };
-    console.log('searchQuery ', searchQuery);
     
     const results = new Set();
     const response: SearchResult = await this.esService.search({
