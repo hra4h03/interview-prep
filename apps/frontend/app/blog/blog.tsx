@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Sidebar from '../sidebar/sidebar';
 import { AppDispatch, RootState } from '../store/store';
 import { getArticles } from '../store/slices/blogSlice';
+import Pagination from '../pagination/pagination';
 
 
 /* eslint-disable-next-line */
@@ -72,18 +73,7 @@ export function Blog(props: BlogProps) {
 
             {/* Pagination */}
             <div className="col-lg-12 col-md-12">
-              <div className="pagination-area text-center">
-                <a href="#" className="prev page-numbers">
-                  <i className='bx bx-chevrons-left'></i>
-                </a>
-                <span className="page-numbers current" aria-current="page">1</span>
-                <a href="#" className="page-numbers">2</a>
-                <a href="#" className="page-numbers">3</a>
-                <a href="#" className="page-numbers">4</a>
-                <a href="#" className="next page-numbers">
-                  <i className='bx bx-chevrons-right'></i>
-                </a>
-              </div>
+              <Pagination />
             </div>
           </div>
 
