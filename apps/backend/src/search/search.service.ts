@@ -3,6 +3,26 @@ import { Injectable } from '@nestjs/common';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 
 
+interface SearchBody {
+  id: string,
+  title: string,
+  categoryId: string,
+  description: string,
+  categoryName: string,
+  categoryImage: string
+}
+
+interface SearchResult {
+  body:{
+    hits: {
+      total: number;
+      hits: Array<{
+        _source: SearchBody;
+      }>;
+    };
+  }
+}
+
 @Injectable()
 export class SearchService {
   constructor(
@@ -16,7 +36,7 @@ export class SearchService {
     console.log('searchQuery ', searchQuery);
     
     const results = new Set();
-    const response: any = await this.esService.search({
+    const response: SearchResult = await this.esService.search({
       index: this.configService.get('ELASTICSEARCH_INDEX'),
       body: {
         size: 50,
