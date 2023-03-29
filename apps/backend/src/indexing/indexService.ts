@@ -118,7 +118,7 @@ export class IndexService {
         }
     }
 
-    async deleteIndex(post) {
+    async deleteByQuery(post) {
         this.esService.deleteByQuery({
             index: this.configService.get('ELASTICSEARCH_INDEX'),
             body: {
