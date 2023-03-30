@@ -4,13 +4,10 @@ import React, { useState } from 'react'
 export interface PaginationProps { }
 
 export function Pagination(props) {
-    console.log('props ', props);
 
     const { nPages, currentPage, setCurrentPage } = props;
 
     const pageNumbers = Array.from(Array(nPages + 1).keys()).slice(1);
-    console.log('pageNumbers ', pageNumbers);
-
 
     const prevPage = () => {
         if (currentPage !== 1)

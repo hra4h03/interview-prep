@@ -24,10 +24,6 @@ const SearchForm = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     console.log('search on submit ', search);
-    // const url = `${API_URL}/search?title=${search.search}`
-    // const response = await axios.get(url)
-    // console.log(response)
-    // return response.data
     
     Router.push({
       pathname: '/blog/search',
