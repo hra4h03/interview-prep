@@ -12,7 +12,7 @@ const SearchForm = () => {
   }
 
   const debouncedResults = useMemo(() => {
-    return debounce(handleOnChange, 500);
+    return debounce(handleOnChange, 300);
   }, []);
 
   useEffect(() => {

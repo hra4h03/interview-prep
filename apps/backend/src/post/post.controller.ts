@@ -1,4 +1,4 @@
-import { Controller, Get, Res, HttpStatus, Param, NotFoundException, Post, Body, UsePipes } from '@nestjs/common';
+import { Controller, Get, Res, HttpStatus, Param, NotFoundException, Post, Body, UsePipes, Query } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDTO } from './dto/create-post.dto';
 import { ValidateObjectId, ValidatePost } from './pipes/validation-pipes';
@@ -10,6 +10,12 @@ export class PostController {
     @Get('posts')
     async getPosts(@Res() res) {
         const posts = await this.postService.getPosts();
+        return res.status(HttpStatus.OK).json(posts);
+    }
+
+    @Get('slice')
+    async getSlice(@Res() res, @Query() query) {
+        const posts = await this.postService.getSlice(query.start, query.limit);
         return res.status(HttpStatus.OK).json(posts);
     }
 

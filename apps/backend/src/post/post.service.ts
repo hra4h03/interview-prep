@@ -1,3 +1,4 @@
+import { getChunks } from './../../../frontend/app/store/slices/blogSlice';
 import { IndexService } from './../indexing/indexService';
 import { Injectable, Inject } from '@nestjs/common';
 import { CreatePostDTO } from './dto/create-post.dto';
@@ -12,6 +13,10 @@ export class PostService {
 
     async getPosts() {
         return this.blogCollection.find({}).toArray();
+    }
+
+    async getSlice(start, limit) {
+        return this.blogCollection.find({}).sort({ $natural: -1 }).skip(start).limit(limit).toArray();
     }
 
     async getPopularPosts() {

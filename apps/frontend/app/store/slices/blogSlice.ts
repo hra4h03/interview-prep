@@ -18,6 +18,9 @@ const initialState = {
 export const getArticles =
     createAsyncThunk('blog/posts', async () => (await fetch(`${API_URL}/posts`)).json());
 
+export const getSlice =
+    createAsyncThunk('blog/slice', async (start, limit) => (await fetch(`${API_URL}/slice?start=${start}&limit=${limit}`)).json());
+
 export const getPostsByCategory =
     createAsyncThunk('category/posts/category', async (id: string) => {
         return (await fetch(`${API_URL}/posts/category/${id}`)).json()

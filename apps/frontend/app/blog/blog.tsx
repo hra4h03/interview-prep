@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Sidebar from '../sidebar/sidebar';
 import { AppDispatch, RootState } from '../store/store';
-import { getArticles } from '../store/slices/blogSlice';
+import { getArticles, getSlice } from '../store/slices/blogSlice';
 import Pagination from '../pagination/pagination';
 
 
@@ -12,9 +12,16 @@ export interface BlogProps { }
 export function Blog(props: BlogProps) {
   const blog = useSelector((store: RootState) => store.blog);
   const dispatch = useDispatch<AppDispatch>();
+  const [recordsPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = blog.articles.slice(indexOfFirstRecord, indexOfLastRecord);
+  const nPages = Math.ceil(blog.articles.length / recordsPerPage);
 
   useEffect(() => {
     dispatch(getArticles())
+    // dispatch(getSlice(0, 10))
   }, [dispatch])
 
 
@@ -30,7 +37,7 @@ export function Blog(props: BlogProps) {
               {!blog.loading && blog.error ? <div>Error: {blog.error}</div> : null}
               {!blog.loading && blog.error === '' && blog.articles.length > 0 ? (
                 <>
-                  {blog.articles.map((item) => {
+                  {currentRecords.map((item) => {
                     return (
                       <div className="col-lg-4 col-md-6" key={item._id}>
                         <div className="single-blog-post-box">
@@ -73,7 +80,7 @@ export function Blog(props: BlogProps) {
 
             {/* Pagination */}
             <div className="col-lg-12 col-md-12">
-              <Pagination />
+              <Pagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </div>
           </div>
 

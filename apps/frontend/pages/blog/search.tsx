@@ -4,6 +4,7 @@ import Sidebar from '../../app/sidebar/sidebar';
 import { useRouter } from 'next/router';
 import { API_URL } from '../../app/constants';
 import axios from 'axios';
+import Pagination from '../../app/pagination/pagination';
 
 
 /* eslint-disable-next-line */
@@ -12,6 +13,13 @@ export function Search(props: SearchProps) {
     const router = useRouter();
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const [recordsPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    const currentRecords = articles.slice(indexOfFirstRecord, indexOfLastRecord);
+    const nPages = Math.ceil(articles.length / recordsPerPage);
 
     useEffect(() => {
         if (router.isReady) {
@@ -81,18 +89,7 @@ export function Search(props: SearchProps) {
 
                         {/* Pagination */}
                         <div className="col-lg-12 col-md-12">
-                            <div className="pagination-area text-center">
-                                <a href="#" className="prev page-numbers">
-                                    <i className='bx bx-chevrons-left'></i>
-                                </a>
-                                <span className="page-numbers current" aria-current="page">1</span>
-                                <a href="#" className="page-numbers">2</a>
-                                <a href="#" className="page-numbers">3</a>
-                                <a href="#" className="page-numbers">4</a>
-                                <a href="#" className="next page-numbers">
-                                    <i className='bx bx-chevrons-right'></i>
-                                </a>
-                            </div>
+                            <Pagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
                         </div>
                     </div>
 
