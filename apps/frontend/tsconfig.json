@@ -30,7 +30,8 @@
     "app/blog/blog.spec.tsx--",
     "pages/form.tsx",
     "app/store/slices/categorySlice.ts--",
-    "../../apps/frontend/.next/types/**/*.ts"
+    "../../apps/frontend/.next/types/**/*.ts",
+    "../../dist/apps/frontend/.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

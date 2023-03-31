@@ -1,105 +1,25 @@
 version: 1
 applications:
-  - appRoot: apps/frontend
-    env:
-      variables:
-        AMPLIFY_MONOREPO_APP_ROOT:apps/frontend
-    backend:
+  - backend:
       phases:
-        preBuild:
-          commands:
-            # - *enter command*
         build:
           commands:
-            # - *enter command*
-        postBuild:
-            commands:
-            # - *enter command*
+            - '# Execute Amplify CLI with the helper script'
+            - amplifyPush --simple
     frontend:
       phases:
         preBuild:
           commands:
-            # - *enter command*
-            # - *enter command*
+            - npm install -g pnpm && pnpm install
         build:
           commands:
-            # - *enter command*
+            - npx nx build frontend --prod
       artifacts:
+        baseDirectory: dist/apps/.next
         files:
-            - location
-            - location
-        discard-paths: yes
-        baseDirectory: location
+          - '**/*'
       cache:
         paths:
-            - path
-            - path
-    test:
-      phases:
-        preTest:
-          commands:
-            - *enter command*
-        test:
-          commands:
-            - *enter command*
-        postTest:
-          commands:
-            - *enter command*
-      artifacts:
-        files:
-            - location
-            - location
-        configFilePath: *location*
-        baseDirectory: *location*
-  - appRoot: apps/backend
-    env:
-      variables:
-        key: value
-    backend:
-      phases:
-        preBuild:
-          commands:
-            # - *enter command*
-        build:
-          commands:
-            # - *enter command*
-        postBuild:
-            commands:
-            # - *enter command*
-    frontend:
-      phases:
-        preBuild:
-          commands:
-            # - *enter command*
-            # - *enter command*
-        build:
-          commands:
-            # - *enter command*
-      artifacts:
-        files:
-            - location
-            - location
-        discard-paths: yes
-        baseDirectory: location
-      cache:
-        paths:
-            - path
-            - path
-    test:
-      phases:
-        preTest:
-          commands:
-            # - *enter command*
-        test:
-          commands:
-            # - *enter command*
-        postTest:
-          commands:
-            # - *enter command*
-      artifacts:
-        files:
-            - location
-            - location
-        configFilePath: *location*
-        baseDirectory: *location*
-    
+          - node_modules/**/*
+      buildPath: /
+    appRoot: apps

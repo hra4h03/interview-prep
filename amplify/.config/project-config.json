@@ -3,12 +3,12 @@
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {
-    "framework": "react",
+    "framework": "none",
     "config": {
-      "SourceDir": "src",
-      "DistributionDir": "build",
-      "BuildCommand": "npm.cmd run-script build",
-      "StartCommand": "npm.cmd run-script start"
+      "SourceDir": "apps",
+      "DistributionDir": "dist",
+      "BuildCommand": " ",
+      "StartCommand": " "
     }
   },
   "providers": [

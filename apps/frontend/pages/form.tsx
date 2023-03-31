@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import { API_URL, CLOUDINARY_BASE_URL, CLOUDINARY_FOLDER, CLOUDINARY_ID } from '../app/constants';
+import {API_URL, CLOUDINARY_BASE_URL, CLOUDINARY_FOLDER, CLOUDINARY_ID} from '../app/constants';
 
 /* eslint-disable-next-line */
-export interface FormProps { }
+export interface FormProps {
+}
 
 const getCategories = () => fetch(`${API_URL}/categories`).then(data => data.json());
 
@@ -25,19 +26,23 @@ export function Form(props: FormProps) {
   const init = () => {
     getCategories().then(categories => {
       setCategories(categories);
-      setFormData((prevState) => ({ ...prevState, categoryName: categories[0].categoryName, categoryId: categories[0]._id }));
+      setFormData((prevState) => ({
+        ...prevState,
+        categoryName: categories[0].categoryName,
+        categoryId: categories[0]._id
+      }));
     })
   }
 
   const selectedIdOnChange = (e, attr) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
     const idChosen = e.target.children[e.target.selectedIndex]?.getAttribute(attr)
-    setFormData((prevState) => ({ ...prevState, [name]: value, categoryId: idChosen }));
+    setFormData((prevState) => ({...prevState, [name]: value, categoryId: idChosen}));
   }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
+    const {name, value} = e.target;
+    setFormData((prevState) => ({...prevState, [name]: value}));
   };
 
   const handleSubmit = async (e) => {
@@ -45,7 +50,7 @@ export function Form(props: FormProps) {
     try {
       formData.categoryImage = `${CLOUDINARY_BASE_URL}/${CLOUDINARY_ID}/${CLOUDINARY_FOLDER}/${formData.categoryName}.png`;
       const url = `${API_URL}/post`;
-      const payload = { ...formData };
+      const payload = {...formData};
       console.log('payload ', payload);
       const response = await axios.post(url, payload);
       if (response.status === 200) {
@@ -64,20 +69,20 @@ export function Form(props: FormProps) {
         <div className="form-group">
           <label>Title</label>
           <input required type="description" className="form-control" placeholder="Full Name"
-            name="title" value={formData.title} onChange={handleChange} />
+                 name="title" value={formData.title} onChange={handleChange}/>
         </div>
 
         <div className="form-group">
           <label>Description</label>
           <textarea required className="form-control" placeholder="Description" name="description"
-            value={formData.description} rows="10" onChange={handleChange} />
+                    value={formData.description} rows={10} onChange={handleChange}/>
         </div>
 
         <div className="form-group">
           <label>Category</label>
           <select className="form-control" placeholder="category name"
-            name='categoryName' defaultValue={formData.categoryName}
-            onChange={(e) => selectedIdOnChange(e, 'data-id')}>
+                  name='categoryName' defaultValue={formData.categoryName}
+                  onChange={(e) => selectedIdOnChange(e, 'data-id')}>
             {categories.map((item) => <option key={item._id} data-id={item._id}>{item.categoryName}</option>)}
           </select>
         </div>
