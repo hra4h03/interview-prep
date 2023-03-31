@@ -1,4 +1,3 @@
-import { getChunks } from './../../../frontend/app/store/slices/blogSlice';
 import { IndexService } from './../indexing/indexService';
 import { Injectable, Inject } from '@nestjs/common';
 import { CreatePostDTO } from './dto/create-post.dto';
