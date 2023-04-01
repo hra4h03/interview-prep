@@ -1,11 +1,20 @@
 version: 1
 applications:
-#  - backend:
-#      phases:
-#        build:
-#          commands:
-#            - '# Execute Amplify CLI with the helper script'
-#            - amplifyPush --simple
+  - backend:
+      preBuild:
+        commands:
+          - npm install -g pnpm@8.1.0 && pnpm install
+      build:
+        commands:
+          - pnpx nx build backend --prod
+          - pnpm start
+      artifacts:
+        baseDirectory: ../../dist/apps/backend
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
     frontend:
       phases:
         preBuild:
@@ -13,7 +22,7 @@ applications:
             - npm install -g pnpm@8.1.0 && pnpm install
         build:
           commands:
-            - npx nx build frontend --prod
+            - pnpx nx build frontend --prod
       artifacts:
         baseDirectory: ../../dist/apps/.next
         files:
