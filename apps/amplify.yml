@@ -10,12 +10,12 @@ applications:
       phases:
         preBuild:
           commands:
-            - npm install -g pnpm && pnpm install
+            - npm install -g pnpm@8.1.0 && pnpm install
         build:
           commands:
             - npx nx build frontend --prod
       artifacts:
-        baseDirectory: dist/apps/.next
+        baseDirectory: ../../dist/apps/.next
         files:
           - '**/*'
       cache:
