@@ -2,6 +2,7 @@
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withNx } = require('@nrwl/next/plugins/with-nx');
+const path = require("path");
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
@@ -27,7 +28,8 @@ const nextConfig = {
       "pk_test_51MeyZQSII06WieIttSr6RZvHgfLIMBP8nENfYgWW2ISVHTJSglS6SsDLxPx0Sx9NzzmUt310LP2NleNjinTJL9o100aJUyWLSr",
   },
   experimental:{
-    appDir: true
+    appDir: true,
+    outputFileTracingRoot: path.join(__dirname, '../../')
   }
 };
 
