@@ -23,6 +23,7 @@ applications:
         build:
           commands:
             - pnpx nx build frontend --prod
+            - pnpx next export
       artifacts:
         baseDirectory: ../../dist/apps/.next
         files:
