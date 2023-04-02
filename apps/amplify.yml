@@ -26,10 +26,10 @@ applications:
       #   build:
       #     commands:
       #       - pnpx nx build frontend --prod
-      # artifacts:
-      #   baseDirectory: ../../dist/apps/frontend
-      #   files:
-      #     - '**/*'
+      artifacts:
+        baseDirectory: /
+        files:
+          - '**/*'
       # cache:
       #   paths:
       #     - node_modules/**/*
