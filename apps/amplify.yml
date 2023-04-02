@@ -1,6 +1,7 @@
 version: 1
 applications:
-  - backend:
+  - appRoot: apps/backend
+    backend:
       preBuild:
         commands:
           - npm install -g pnpm@8.1.0 && pnpm install
@@ -15,6 +16,7 @@ applications:
       cache:
         paths:
           - node_modules/**/*
+  - appRoot: apps/frontend
     frontend:
       phases:
         preBuild:
@@ -31,4 +33,4 @@ applications:
         paths:
           - node_modules/**/*
       buildPath: /
-    appRoot: apps
+    
